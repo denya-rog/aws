@@ -1,3 +1,6 @@
+# This script copies tag value of specified tag key of ec2 instance
+# to volumes and network interfaces attached to the instance.
+
 import boto3
 
 # Edit parameters:
