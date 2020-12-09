@@ -5,17 +5,14 @@ import boto3
 
 
 # Edit parameters:
-tagKey = 'EndUser' #Tag key of an instance you need to copy to its volumes and network interfaces
-account_id = ''
-region = ''
+tagKey = ''            # Tag key of an instance you need to copy to its volumes and network interfaces
+account_id = ''        # Check it on AWS Support page
+region = ''            # Specify a region
 
 
 # Do not edit below
-ec2 = boto3.resource('ec2', region_name=region).instances.all()
 request_get = boto3.client('ec2',region_name=region)
 filters = [{'Name':'tag-key','Values':[tagKey]}]
-response = request_get.describe_instances(Filters=filters)["Reservations"]
-instance_id = ''
 request_snapshot = request_get.describe_snapshots(Filters=[{'Name':'owner-id','Values':[account_id]}])
 request_volumes = request_get.describe_volumes(Filters=[{'Name':'tag-key','Values':[tagKey]}])
 
