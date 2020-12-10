@@ -2,17 +2,9 @@
 # to volumes and network interfaces attached to the instance.
 
 import boto3
-import sys
 
-try:
-    region = sys.argv[1]
-except IndexError:
-    print('Provide a region name as argument, e.g. us-east-1')
-    exit(1)
-
-# Edit parameters:
-tagKey = 'End User' #Tag key of an instance you need to copy to its volumes and network interfaces
-#region = input('Input region name (example: us-east-1): ')
+tagKey = input('Input tag key: ') #Tag key of an instance you need to copy to its volumes and network interfaces
+region = input('Input region name (example: us-east-1): ')
 
 
 # Do not edit below
@@ -26,7 +18,6 @@ for group in response:
     instances = group['Instances']
     for id_list in instances:
         instance_id = id_list['InstanceId']
-        #print(instance_id)
 
         # finding value of the tag key
         tags = id_list['Tags']
@@ -35,7 +26,6 @@ for group in response:
             value_value = tag_values['Value']
             if key_value == tagKey:
                 tag = value_value
-        #print(tag)
 
         # copying tag key and value to volumes
         volumes = id_list['BlockDeviceMappings']
@@ -48,7 +38,6 @@ for group in response:
                     'Value': tag
                 },
             ])
-            #print(volume_id)
 
         # copying tag key and value to network interfaces
         networks = id_list['NetworkInterfaces']
@@ -60,5 +49,4 @@ for group in response:
                     'Value': tag
                 },
             ])
-            #print(eni_id)
 print("Done!")
