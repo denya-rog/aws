@@ -17,7 +17,7 @@ def for_region():
 
     def get_snapshot():
         '''
-        Returns snapshots for the account in the region specified in get_region() function.
+        Returns snapshots for the account in the region.
         :return: List of snapshots
         '''
         request_snapshot = request_get.describe_snapshots(Filters=[{'Name':'owner-id','Values':[account_id]}])
@@ -35,7 +35,7 @@ def for_region():
 
     def tagging_snapshots():
         '''
-        Tagging snapshots by volume ID with tag value of the volume.
+        Copying tag value of the volume with specified tag key to snapshots.
         :return: None
         '''
 
