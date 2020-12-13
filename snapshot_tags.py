@@ -49,6 +49,7 @@ def tagging_snapshots():
                             tag = volume_keys['Value']
                             volume_id = volume_id_resp
                             if volume_id == volume_to_tag:
+                                print(f"Tagging snapshot: {snapshot_id}")
                                 set_snap_tag = boto3.resource('ec2', region_name=region).Snapshot(snapshot_id).create_tags(Tags=[
                                     {
                                         'Key': tagKey,
@@ -57,6 +58,6 @@ def tagging_snapshots():
                                 ])
 
 
-print("Tagging snapshots....")
+
 tagging_snapshots()
 print("Done!")
