@@ -14,6 +14,7 @@ def get_snapshot():
     Returns snapshots for the account in the region.
     :return: List of snapshots
     '''
+    print("Getting snapshots....")
     request_snapshot = request_get.describe_snapshots(Filters=[{'Name':'owner-id','Values':[account_id]}])
     return request_snapshot
 
@@ -23,6 +24,7 @@ def get_volume():
     Returns volumes in the region with specified tag key.
     :return: List of volumes
     '''
+    print("Getting volumes.....")
     request_volumes = request_get.describe_volumes(Filters=[{'Name':'tag-key','Values':[tagKey]}])
     return request_volumes
 
@@ -32,13 +34,14 @@ def tagging_snapshots():
     Copying tag value of the volume with specified tag key to snapshots.
     :return: None
     '''
-
-    for response_snapshot in get_snapshot():
-        for snapshots in get_snapshot()['Snapshots']:
+    all_snapshots = get_snapshot()
+    all_volumes = get_volume()
+    for response_snapshot in all_snapshots:
+        for snapshots in all_snapshots['Snapshots']:
             volume_to_tag = snapshots['VolumeId']
             snapshot_id = snapshots['SnapshotId']
-            for response_volumes in get_volume():
-                for volumes in get_volume()['Volumes']:
+            for response_volumes in all_volumes:
+                for volumes in all_volumes['Volumes']:
                     volume_id_resp = volumes['VolumeId']
                     volume_tags = volumes['Tags']
                     for volume_keys in volume_tags:
@@ -54,14 +57,8 @@ def tagging_snapshots():
                                 ])
 
 
-def for_region():
-    '''
-    Copies tag value of tag key for specified region in the account.
-    :return:
-    '''
 
-
-    get_snapshot()
-    get_volume()
-    tagging_snapshots()
-for_region()
+tagging_snapshots()
+print("Tagging snapshots....")
+print("Done!")
+#543033905888
