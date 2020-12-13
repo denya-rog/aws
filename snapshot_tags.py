@@ -57,8 +57,6 @@ def tagging_snapshots():
                                 ])
 
 
-
-tagging_snapshots()
 print("Tagging snapshots....")
+tagging_snapshots()
 print("Done!")
-#543033905888
