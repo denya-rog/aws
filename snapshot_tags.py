@@ -36,6 +36,7 @@ def tagging_snapshots():
     '''
     all_snapshots = get_snapshot()
     all_volumes = get_volume()
+    available_zones = [region + 'a', region + 'b', region + 'c', region + 'd']
     for response_snapshot in all_snapshots:
         for snapshots in all_snapshots['Snapshots']:
             volume_to_tag = snapshots['VolumeId']
@@ -45,7 +46,7 @@ def tagging_snapshots():
                     volume_id_resp = volumes['VolumeId']
                     volume_tags = volumes['Tags']
                     for volume_keys in volume_tags:
-                        if volume_keys['Key'] == tagKey:
+                        if volume_keys['Key'] == tagKey and volumes['AvailabilityZone'] in available_zones:
                             tag = volume_keys['Value']
                             volume_id = volume_id_resp
                             if volume_id == volume_to_tag:
@@ -56,8 +57,8 @@ def tagging_snapshots():
                                         'Value': tag
                                     }
                                 ])
-
-
+                            else:
+                                continue
 
 tagging_snapshots()
 print("Done!")
