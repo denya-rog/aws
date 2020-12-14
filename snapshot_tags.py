@@ -18,6 +18,7 @@ def get_volumes():
     :return: List of volumes
     '''
     print("Getting volumes.....")
+    volumes_info = []
     request_volumes = request_get.describe_volumes(Filters=[{'Name':'tag-key','Values':[tagKey]}])
     for all_volumes in request_volumes['Volumes']:
         volume_id = all_volumes['VolumeId']
@@ -26,7 +27,8 @@ def get_volumes():
             if tag_key['Key'] == tagKey:
                 volume_id = volume_id
                 volume_tag_value = tag_key['Value']
-    return volume_id, volume_tag_value
+            volumes_info = [volume_id, volume_tag_value]
+    return volumes_info
 get_volumes()
 
 def get_snapshots(volume_id):
