@@ -44,7 +44,18 @@ def get_snapshots(volume_id):
     print(request_snapshots)
     return request_snapshots
 
-get_snapshots()
+for vol_id, tag in get_volumes():
+    # iterate over needed vols
+    for i in get_snapshots(vol_id)['Snapshots']:
+        #for snapshots only in needed vols
+        snapshot_id = snapshots['SnapshotId']
+        if 'Tags' in snapshots:
+            snapshot_tags = snapshots['Tags']
+            for a in snapshot_tags:
+                if tagKey not in a['Key']:
+                    # maybe here add tag?
+                    continue
+                #
 
 def tagging_snapshots():
     '''
