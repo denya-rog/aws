@@ -27,7 +27,7 @@ def get_volumes():
             if tag_key['Key'] == tagKey:
                 volume_id = volume_id
                 volume_tag_value = tag_key['Value']
-            volumes_info = [volume_id, volume_tag_value]
+                volumes_info.append([volume_id, volume_tag_value])
     return volumes_info
 get_volumes()
 
