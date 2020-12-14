@@ -46,7 +46,7 @@ def get_snapshots(volume_id):
 
 for vol_id, tag in get_volumes():
     # iterate over needed vols
-    for i in get_snapshots(vol_id)['Snapshots']:
+    for snapshots in get_snapshots(vol_id)['Snapshots']:
         #for snapshots only in needed vols
         snapshot_id = snapshots['SnapshotId']
         if 'Tags' in snapshots:
